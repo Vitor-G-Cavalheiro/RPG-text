@@ -1,4 +1,4 @@
-public class Entity {
+public abstract class Entity {
     private int strengh;
     private int agillity;
     private int inteligence;
@@ -6,16 +6,9 @@ public class Entity {
     private int defense;
     private int life;
     private int damage;
+    private String name;
 
-    public Entity() {
-        this.strengh = 5;
-        this.agillity = 1;
-        this.inteligence = 1;
-        this.constitucion = 1;
-        this.defense = 6;
-    }
-
-    public Entity(int strengh, int agillity, int inteligence, int constitucion, int damage) {
+    public Entity(int strengh, int agillity, int inteligence, int constitucion, int damage, String name) {
         this.strengh = strengh;
         this.agillity = agillity;
         this.inteligence = inteligence;
@@ -23,6 +16,7 @@ public class Entity {
         this.defense = agillity + 5;
         this.life = constitucion * 5;
         this.damage = damage;
+        this.name = name;
     }     
 
     public int getAgillity() {
@@ -43,6 +37,10 @@ public class Entity {
 
     public int getDefense() {
         return defense;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int soffrering(int damage) {

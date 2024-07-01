@@ -10,25 +10,45 @@ public class Combat {
 
     public void combatStart(){
         while(combatDuration){
-            for(int i = 0; i < caracther.getStrengh(); i++){
-                int strike = probability();
-                if(strike >= enemy.getDefense()){
-                    System.out.println("Acertou " + strike);
-                    hurtEntity(caracther.getDamage(), enemy);
-                }else{
-                    System.out.println("Tente de novo " + strike);
-                }
+            if(caracther.getLife() > 0){
+                strike(caracther, enemy);
+            }
+            if(enemy.getLife() > 0){
+                strike(enemy, caracther);
             }
         }
+    }
+
+    public boolean strike(Entity attacker, Entity defensor) {
+        int strike = bestStrike(attacker);
+        if(strike >= defensor.getDefense()){
+            System.out.println(attacker.getName() + " Acertou " + strike);
+            hurtEntity(attacker.getDamage(), defensor);
+            return true;
+        } else {
+            System.out.println(attacker.getName() + " errou");
+            return false;
+        } 
+    }
+
+    public int bestStrike(Entity attacker) {
+        int bestStrike = 0;
+        for(int i = 0; i < attacker.getStrengh(); i++){
+            int strike = probability();
+            if(strike > bestStrike){
+                bestStrike = strike;
+            }
+        }
+        return bestStrike;
     }
 
     public void hurtEntity(int damage, Entity entity){
         int life = entity.soffrering(damage);
         if(life <= 0){
-            System.out.println("Alguém morreu");
+            System.out.println(entity.getName() + " morreu");
             endCombat();
         }else {
-            System.out.println("O Dragão sofreu, sua vida atual é de: " + life);
+            System.out.println(entity.getName() + " sofreu, sua vida atual é de: " + life);
         }
     }
 
