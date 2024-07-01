@@ -6,29 +6,39 @@ public class Combat {
     Entity character;
     Entity enemy;
 
+    Listener listen = new Listener();
+    Item item = new Item();
+
     public Combat(Entity character, Entity enemy){
         this.character = character;
         this.enemy = enemy;
     };
 
     public void combatStart(){
-        int test = 1;
-        while(test>0){
-            test--;
+        do{
             if(character.getLife() > 0){
-                strike(character, enemy);
+                String player = listen.choiceCombat();
+                if(player.equals("ATACAR")){
+                    strike(character, enemy);
+                }else if(player.equals("ITEM")){
+                    String consumables = listen.choiceItem();
+                    item.usageItem(consumables, character);
+                }else if(player.equals("FUGIR")){
+                    System.out.println("VOCÊ CORREU!");
+                    break;
+                }
             }
             if(enemy.getLife() > 0){
                 strike(enemy, character);
             }
-        }
+        }while(combatDuration);
     }
 
     public boolean strike(Entity attacker, Entity defensor) {
         int strike = bestStrike(attacker);
         if(strike >= defensor.getDefense()){
             System.out.println(attacker.getName() + " Acertou " + strike);
-            hurtEntity(attacker.getDamage(), defensor);
+            hurtEntity(attacker.getDamage(), defensor, strike);
             return true;
         } else {
             System.out.println(attacker.getName() + " errou");
@@ -47,7 +57,10 @@ public class Combat {
         return bestStrike;
     }
 
-    public void hurtEntity(int damage, Entity entity){
+    public void hurtEntity(int damage, Entity entity, int strike){
+        if(strike == 10){
+            damage = damage * 2;
+        }
         int life = entity.soffrering(damage);
         if(life <= 0){
             System.out.println(entity.getName() + " morreu");

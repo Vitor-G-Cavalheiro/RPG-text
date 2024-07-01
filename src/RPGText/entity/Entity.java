@@ -56,4 +56,9 @@ public abstract class Entity {
     public int getDamage() {
         return damage;
     }
+
+    public int healling(int heal){
+        this.life = life + heal;
+        return life;
+    }
 }
