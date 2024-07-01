@@ -1,5 +1,5 @@
 public class Dragon extends Entity {
-    Dragon(int strengh, int agillity, int inteligence, int constitucion, int damage, String name){
-        super(strengh, agillity, inteligence, constitucion, damage, name);
+    Dragon(int strength, int agility, int inteligence, int constitution, int damage, String name){
+        super(strength, agility, inteligence, constitution, damage, name);
     }
 }

@@ -1,38 +1,38 @@
 public abstract class Entity {
-    private int strengh;
-    private int agillity;
+    private int strength;
+    private int agility;
     private int inteligence;
-    private int constitucion;
+    private int constitution;
     private int defense;
     private int life;
     private int damage;
     private String name;
 
-    public Entity(int strengh, int agillity, int inteligence, int constitucion, int damage, String name) {
-        this.strengh = strengh;
-        this.agillity = agillity;
+    public Entity(int strength, int agility, int inteligence, int constitution, int damage, String name) {
+        this.strength = strength;
+        this.agility = agility;
         this.inteligence = inteligence;
-        this.constitucion = constitucion;
-        this.defense = agillity + 5;
-        this.life = constitucion * 5;
+        this.constitution = constitution;
+        this.defense = agility + 5;
+        this.life = constitution * 5;
         this.damage = damage;
         this.name = name;
     }     
 
-    public int getAgillity() {
-        return agillity;
+    public int getAgility() {
+        return agility;
     }
 
-    public int getConstitucion() {
-        return constitucion;
+    public int getConstitution() {
+        return constitution;
     }
 
     public int getInteligence() {
         return inteligence;
     }
 
-    public int getStrengh() {
-        return strengh;
+    public int getstrength() {
+        return strength;
     }
 
     public int getDefense() {

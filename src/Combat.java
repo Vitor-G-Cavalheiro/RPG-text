@@ -1,20 +1,20 @@
 public class Combat {
     boolean combatDuration = true;
-    Entity caracther;
+    Entity character;
     Entity enemy;
 
-    public Combat(Entity caracther, Entity enemy){
-        this.caracther = caracther;
+    public Combat(Entity character, Entity enemy){
+        this.character = character;
         this.enemy = enemy;
     };
 
     public void combatStart(){
         while(combatDuration){
-            if(caracther.getLife() > 0){
-                strike(caracther, enemy);
+            if(character.getLife() > 0){
+                strike(character, enemy);
             }
             if(enemy.getLife() > 0){
-                strike(enemy, caracther);
+                strike(enemy, character);
             }
         }
     }
@@ -33,7 +33,7 @@ public class Combat {
 
     public int bestStrike(Entity attacker) {
         int bestStrike = 0;
-        for(int i = 0; i < attacker.getStrengh(); i++){
+        for(int i = 0; i < attacker.getstrength(); i++){
             int strike = probability();
             if(strike > bestStrike){
                 bestStrike = strike;
