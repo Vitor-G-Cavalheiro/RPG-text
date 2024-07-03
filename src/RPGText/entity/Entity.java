@@ -8,6 +8,8 @@ public abstract class Entity {
     private int life;
     private int damage;
     private String name;
+    private int maxLife;
+    private int nivel;
 
     public Entity(int strength, int agility, int inteligence, int constitution, int damage, String name) {
         this.strength = strength;
@@ -16,9 +18,15 @@ public abstract class Entity {
         this.constitution = constitution;
         this.defense = agility + 5;
         this.life = constitution * 5;
+        this.maxLife = life;
         this.damage = damage;
         this.name = name;
     }     
+
+    /*public EntityCreator(int nivel, String name) {
+        this.nivel = nivel;
+        this.name = name;
+    }*/
 
     public int getAgility() {
         return agility;
@@ -59,6 +67,9 @@ public abstract class Entity {
 
     public int healling(int heal){
         this.life = life + heal;
+        if(this.life > maxLife){
+            this.life = maxLife;
+        }
         return life;
     }
 }
