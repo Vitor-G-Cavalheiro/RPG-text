@@ -10,6 +10,12 @@ public class Listener {
         String player = sc.nextLine();
         return player;
     }
+
+    public String nameCharacter() {
+        System.out.println("NOMEIE SEU PERSONAGEM: ");
+        String player = sc.nextLine();
+        return player;
+    }
     
     public String choiceCombat() {
         System.out.println("O QUE DESEJA FAZER?\n - ATACAR\n - ITEM\n - FUGIR");

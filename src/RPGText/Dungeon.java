@@ -1,17 +1,18 @@
 package RPGText;
 
 import RPGText.entity.Dragon;
-import RPGText.entity.Warrior;
+import RPGText.entity.Entity;
 import RPGText.entity.Goblin;
 
 public class Dungeon {
-    Warrior junior = new Warrior(3, 2, 1, 3, 5, "Rodrigo Junior");
-    Dragon boss = new Dragon(5, 2, 1, 5, 20, "Deus Dragão Vermelho");
+    Dragon boss = new Dragon();
     int floor = 0;
+    
+    Listener listen = new Listener();
 
-    public void startDungeon(){
+    public void startDungeon(Entity junior) {
         for(int i = 0; i < 10;i++){
-            Goblin narigudo = new Goblin(1, 2, 1, 2, 3, "Maldito Verde");
+            Goblin narigudo = new Goblin();
             System.out.println("VOCÊ ENCONTROU UM " + narigudo.getName());
             System.out.println(narigudo.getLife());
             Combat combat = new Combat(junior, narigudo);
@@ -19,11 +20,11 @@ public class Dungeon {
             floor++;
         }
         if(floor == 10){
-            finalBoss();
+            finalBoss(junior);
         }
     }
 
-    public void finalBoss(){
+    public void finalBoss(Entity junior){
         System.out.println("VOCÊ ENCONTROU O " + boss.getName());
         Combat combat = new Combat(junior, boss);
         combat.combatStart();

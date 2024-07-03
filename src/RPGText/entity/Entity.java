@@ -1,15 +1,30 @@
 package RPGText.entity;
 public abstract class Entity {
+    /* Atributos */
     private int strength;
     private int agility;
     private int inteligence;
     private int constitution;
+
+    /* Atributos Derivados */
     private int defense;
     private int life;
     private int damage;
     private String name;
     private int maxLife;
-    private int nivel;
+
+    /* Level / LevelUp / Xp Atual */
+    private int level;
+    private int upXp;
+    private int actualXp;
+
+    /* Bônus de Atributos */
+    private int upStrength;
+    private int upAgility;
+    private int upInteligence;
+    private int upConstitution;
+    private int upLife;
+    private int upMaxLife;
 
     public Entity(int strength, int agility, int inteligence, int constitution, int damage, String name) {
         this.strength = strength;
@@ -21,12 +36,24 @@ public abstract class Entity {
         this.maxLife = life;
         this.damage = damage;
         this.name = name;
+        this.actualXp = 0;
     }     
 
-    /*public EntityCreator(int nivel, String name) {
-        this.nivel = nivel;
+    public void addName(String name) {
         this.name = name;
-    }*/
+    }
+
+    public void LvlUp(int level) {
+        for(int i = 0; i < level;i++) {
+            this.level = this.level + level;
+            this.maxLife = this.maxLife + this.upLife;
+            this.life = this.maxLife + this.upLife;
+            this.strength = this.strength + this.upStrength;
+            this.agility = this.agility + this.upAgility;
+            this.inteligence = this.inteligence + this.upInteligence;
+            this.constitution = this.constitution + this.upConstitution;
+        }
+    }
 
     public int getAgility() {
         return agility;
