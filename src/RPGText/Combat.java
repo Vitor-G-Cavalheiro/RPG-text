@@ -18,7 +18,7 @@ public class Combat {
         do{
             if(character.getLife() > 0){
                 String player = listen.choiceCombat();
-                if(player.equals("ATACAR")){
+                if(player.equalsIgnoreCase("ATACAR")){
                     strike(character, enemy);
                 }else if(player.equals("ITEM")){
                     String consumables = listen.choiceItem();
