@@ -41,19 +41,6 @@ public abstract class Entity {
         this.name = name;
     }
 
-    public void LvlUp(int level) {
-        for(int i = 0; i < level;i++) {
-            this.maxLife = this.maxLife + 10; //this.upLife;
-            this.life = this.maxLife + 10; //this.upLife;
-            this.strength = this.strength + 5; //this.upStrength;
-            this.agility = this.agility + 1; //this.upAgility;
-            this.inteligence = this.inteligence + 1; // this.upInteligence;
-            this.constitution = this.constitution + 5; //this.upConstitution;
-            this.upXp = this.upXp + 25;
-        }
-        this.level = level;
-    }
-
     public int getAgility() {
         return agility;
     }
@@ -106,9 +93,11 @@ public abstract class Entity {
     public void setActualXp(Entity character, int xp) {
         this.actualXp = this.actualXp + xp;
         if(this.actualXp >= this.upXp){
-            this.actualXp = this.actualXp - this.upXp;
-            character.LvlUp(this.level + 1);
-            System.out.println("Seu nível atual é: " + this.level);
+            while(this.actualXp >= this.upXp){
+                this.actualXp = this.actualXp - this.upXp;
+                character.LvlUp();
+                System.out.println("Seu nível atual é: " + this.level);
+            }
         }
     }
 
@@ -119,4 +108,19 @@ public abstract class Entity {
     public int getLevel() {
         return this.level;
     }
+
+    public void LvlUp() {
+        this.maxLife = this.maxLife + 10; //this.upLife;
+        this.life = this.maxLife + 10; //this.upLife;
+        this.strength = this.strength + 5; //this.upStrength;
+        this.agility = this.agility + 1; //this.upAgility;
+        this.inteligence = this.inteligence + 1; // this.upInteligence;
+        this.constitution = this.constitution + 5; //this.upConstitution;
+        this.upXp = this.upXp + 25;
+        this.level = this.level + 1;
+    }
+    
+    /*public void setLevel() {
+    *    Setar level nos monstro é diferente de setar level no player
+    }*/
 }
