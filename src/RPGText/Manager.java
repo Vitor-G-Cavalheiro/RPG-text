@@ -10,7 +10,7 @@ public class Manager {
 
     public void startGame() {
         String player = listen.loadingScreen();
-        if(player.equals("JOGAR")){
+        if(player.equalsIgnoreCase("JOGAR")){
             nameManager();
         }
     }
