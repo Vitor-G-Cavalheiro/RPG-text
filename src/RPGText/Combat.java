@@ -20,6 +20,7 @@ public class Combat {
                 String player = listen.choiceCombat();
                 if(player.equalsIgnoreCase("ATACAR")){
                     strike(character, enemy);
+                    System.out.println(character.getXpActual());
                 }else if(player.equalsIgnoreCase("ITEM")){
                     String consumables = listen.choiceItem();
                     item.usageItem(consumables, character);
@@ -27,9 +28,13 @@ public class Combat {
                     System.out.println("VOCÊ CORREU!");
                     break;
                 }
+            } else {
+                break;
             }
             if(enemy.getLife() > 0){
                 strike(enemy, character);
+            }else {
+                gainXP(character, enemy);
             }
         }while(combatDuration);
     }
@@ -49,7 +54,7 @@ public class Combat {
     public int bestStrike(Entity attacker) {
         int bestStrike = 0;
         for(int i = 0; i < attacker.getstrength(); i++){
-            int strike = probability();
+            int strike = Manager.probabilityDice();
             if(strike > bestStrike){
                 bestStrike = strike;
             }
@@ -70,12 +75,12 @@ public class Combat {
         }
     }
 
-    public static int probability() {
-        int strike = (int) (Math.random() * 10) + 1;
-        return strike;
-    }
-
     public void endCombat() {
         combatDuration = false;
+    }
+
+    public void gainXP(Entity character, Entity enemy) {
+        int xp = enemy.getXpDrop();
+        character.setActualXp(character, xp);
     }
 }

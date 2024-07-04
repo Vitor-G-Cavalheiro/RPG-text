@@ -5,7 +5,7 @@ public class Listener {
     Scanner sc = new Scanner(System.in);
 
     public String loadingScreen() {
-        System.out.println("BEM VINDO AO TESTE 0.16");
+        System.out.println("BEM VINDO AO TESTE 0.21");
         System.out.println("DIGITE JOGAR PARA INICIAR");
         String player = sc.nextLine();
         return player;
