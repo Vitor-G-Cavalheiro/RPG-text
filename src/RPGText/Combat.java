@@ -30,6 +30,8 @@ public class Combat {
             }
             if(enemy.getLife() > 0){
                 strike(enemy, character);
+            }else {
+                gainXP(character, enemy);
             }
         }while(combatDuration);
     }
@@ -49,7 +51,7 @@ public class Combat {
     public int bestStrike(Entity attacker) {
         int bestStrike = 0;
         for(int i = 0; i < attacker.getstrength(); i++){
-            int strike = probability();
+            int strike = Manager.probabilityDice();
             if(strike > bestStrike){
                 bestStrike = strike;
             }
@@ -70,12 +72,11 @@ public class Combat {
         }
     }
 
-    public static int probability() {
-        int strike = (int) (Math.random() * 10) + 1;
-        return strike;
-    }
-
     public void endCombat() {
         combatDuration = false;
+    }
+
+    public void gainXP(Entity character, Entity enemy) {
+        enemy.getXpDrop();
     }
 }

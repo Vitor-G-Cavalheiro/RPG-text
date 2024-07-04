@@ -10,13 +10,14 @@ public abstract class Entity {
     private int defense;
     private int life;
     private int damage;
-    private String name;
+    protected String name;
     private int maxLife;
 
     // Level / LevelUp / Xp Atual 
     private int level;
     private int upXp;
     private int actualXp;
+    protected int xpDrop;
 
     // Bônus de Atributos 
     private int upStrength;
@@ -25,7 +26,7 @@ public abstract class Entity {
     private int upConstitution;
     private int upLife;
 
-    public Entity(int strength, int agility, int inteligence, int constitution, int damage, String name) {
+    public Entity(int strength, int agility, int inteligence, int constitution, int damage) {
         this.strength = strength;
         this.agility = agility;
         this.inteligence = inteligence;
@@ -34,11 +35,10 @@ public abstract class Entity {
         this.life = constitution * 5;
         this.maxLife = life;
         this.damage = damage;
-        this.name = name;
         this.actualXp = 0;
     }     
 
-    public void addName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -98,4 +98,15 @@ public abstract class Entity {
         }
         return life;
     }
+
+    public int getXpDrop() {
+        return this.xpDrop;
+    }
+
+    /*public int setActualXp(Entity character,int xp) {
+        this.actualXp = this.actualXp + xp;
+        if(this.actualXp >= this.upXp){
+            character.LvlUp();
+        }
+    }*/
 }
