@@ -18,12 +18,12 @@ public class Combat {
         do{
             if(character.getLife() > 0){
                 String player = listen.choiceCombat();
-                if(player.equals("ATACAR")){
+                if(player.equalsIgnoreCase("ATACAR")){
                     strike(character, enemy);
-                }else if(player.equals("ITEM")){
+                }else if(player.equalsIgnoreCase("ITEM")){
                     String consumables = listen.choiceItem();
                     item.usageItem(consumables, character);
-                }else if(player.equals("FUGIR")){
+                }else if(player.equalsIgnoreCase("FUGIR")){
                     System.out.println("VOCÊ CORREU!");
                     break;
                 }
