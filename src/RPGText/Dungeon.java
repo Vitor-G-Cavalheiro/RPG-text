@@ -16,19 +16,13 @@ public class Dungeon {
     
     Listener listen = new Listener();
 
-    List<Entity> enemys = Arrays.asList(
-        new Goblin(),
-        new Wolf(),
-        new Slime()
-    );
-
     Random random = new Random();
 
     public void startDungeon(Entity junior) {
         for(int i = 0; i < 10;i++){
-            Entity enemy = enemys.get(random.nextInt(enemys.size()));
+            Entity enemy = enemyRandomizer();
             System.out.println("VOCÊ ENCONTROU UM -=[ " + enemy.getName() + " ]=-");
-            System.out.println("Vida: "+enemy.getLife());
+            System.out.println("Vida: "+ enemy.getLife());
             Combat combat = new Combat(junior, enemy);
             combat.combatStart();
             floor++;
@@ -42,5 +36,14 @@ public class Dungeon {
         System.out.println("VOCÊ ENCONTROU O " + boss.getName());
         Combat combat = new Combat(junior, boss);
         combat.combatStart();
+    }
+
+    public Entity enemyRandomizer() {
+        List<Entity> enemys = Arrays.asList(
+            new Goblin(),
+            new Wolf(),
+            new Slime()
+        );
+        return enemys.get(random.nextInt(enemys.size()));
     }
 }
