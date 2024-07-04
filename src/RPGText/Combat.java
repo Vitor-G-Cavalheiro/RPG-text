@@ -20,6 +20,7 @@ public class Combat {
                 String player = listen.choiceCombat();
                 if(player.equalsIgnoreCase("ATACAR")){
                     strike(character, enemy);
+                    System.out.println(character.getXpActual());
                 }else if(player.equalsIgnoreCase("ITEM")){
                     String consumables = listen.choiceItem();
                     item.usageItem(consumables, character);
@@ -27,6 +28,8 @@ public class Combat {
                     System.out.println("VOCÊ CORREU!");
                     break;
                 }
+            } else {
+                break;
             }
             if(enemy.getLife() > 0){
                 strike(enemy, character);
@@ -77,6 +80,7 @@ public class Combat {
     }
 
     public void gainXP(Entity character, Entity enemy) {
-        enemy.getXpDrop();
+        int xp = enemy.getXpDrop();
+        character.setActualXp(character, xp);
     }
 }

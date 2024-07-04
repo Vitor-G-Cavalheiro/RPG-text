@@ -20,6 +20,10 @@ public class Dungeon {
 
     public void startDungeon(Entity junior) {
         for(int floor = 1; floor < 12;floor++){
+            if(junior.getLife() < 1) {
+                Manager.endGame();
+                break;
+            }
             if(floor == 4 && rewardAvaliable || floor == 8 && rewardAvaliable){
                 rewardRoom();
             } else if(floor == 5 || floor == 10) {

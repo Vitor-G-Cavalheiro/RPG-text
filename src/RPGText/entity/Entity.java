@@ -14,17 +14,17 @@ public abstract class Entity {
     private int maxLife;
 
     // Level / LevelUp / Xp Atual 
-    private int level;
-    private int upXp;
-    private int actualXp;
+    private int level = 1;
+    private int upXp = 50;
+    private int actualXp = 0;
     protected int xpDrop;
 
     // Bônus de Atributos 
-    private int upStrength;
-    private int upAgility;
-    private int upInteligence;
-    private int upConstitution;
-    private int upLife;
+    //private int upStrength;
+    //private int upAgility;
+    //private int upInteligence;
+    //private int upConstitution;
+    //private int upLife;
 
     public Entity(int strength, int agility, int inteligence, int constitution, int damage) {
         this.strength = strength;
@@ -35,7 +35,6 @@ public abstract class Entity {
         this.life = constitution * 5;
         this.maxLife = life;
         this.damage = damage;
-        this.actualXp = 0;
     }     
 
     public void setName(String name) {
@@ -43,15 +42,16 @@ public abstract class Entity {
     }
 
     public void LvlUp(int level) {
-        for(int i = 1; i < level;i++) {
-            this.level = this.level + level;
-            this.maxLife = this.maxLife + this.upLife;
-            this.life = this.maxLife + this.upLife;
-            this.strength = this.strength + this.upStrength;
-            this.agility = this.agility + this.upAgility;
-            this.inteligence = this.inteligence + this.upInteligence;
-            this.constitution = this.constitution + this.upConstitution;
+        for(int i = 0; i < level;i++) {
+            this.maxLife = this.maxLife + 10; //this.upLife;
+            this.life = this.maxLife + 10; //this.upLife;
+            this.strength = this.strength + 5; //this.upStrength;
+            this.agility = this.agility + 1; //this.upAgility;
+            this.inteligence = this.inteligence + 1; // this.upInteligence;
+            this.constitution = this.constitution + 5; //this.upConstitution;
+            this.upXp = this.upXp + 25;
         }
+        this.level = level;
     }
 
     public int getAgility() {
@@ -103,10 +103,20 @@ public abstract class Entity {
         return this.xpDrop;
     }
 
-    /*public int setActualXp(Entity character,int xp) {
+    public void setActualXp(Entity character, int xp) {
         this.actualXp = this.actualXp + xp;
         if(this.actualXp >= this.upXp){
-            character.LvlUp();
+            this.actualXp = this.actualXp - this.upXp;
+            character.LvlUp(this.level + 1);
+            System.out.println("Seu nível atual é: " + this.level);
         }
-    }*/
+    }
+
+    public int getXpActual() {
+        return this.actualXp;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
 }
