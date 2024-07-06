@@ -1,37 +1,35 @@
 package RPGText;
+
 import RPGText.entity.Entity;
+import RPGText.entity.EntityPlayable;
+import RPGText.entity.EntityEnemy;
 
 public class Combat {
-    boolean combatDuration = true;
-    Entity character;
-    Entity enemy;
+    static boolean combatDuration = true;
+    EntityPlayable character;
+    EntityEnemy enemy;
 
     Listener listen = new Listener();
     Item item = new Item();
 
-    public Combat(Entity character, Entity enemy){
+    public Combat(EntityPlayable character, EntityEnemy enemy) {
         this.character = character;
         this.enemy = enemy;
     };
 
-    public void combatStart(){
+    public void combatStart() {
+        combatDuration = true;
         do{
             if(character.getLife() > 0){
-                String player = listen.choiceCombat();
-                if(player.equalsIgnoreCase("ATACAR")){
-                    strike(character, enemy);
-                    System.out.println(character.getXpActual());
-                }else if(player.equalsIgnoreCase("ITEM")){
-                    String consumables = listen.choiceItem();
-                    item.usageItem(consumables, character);
-                }else if(player.equalsIgnoreCase("FUGIR")){
+                boolean combatContinue = listen.choiceCombat(character, enemy);
+                 if(!combatContinue) {
                     System.out.println("VOCÊ CORREU!");
                     break;
                 }
             } else {
                 break;
             }
-            if(enemy.getLife() > 0){
+            if(enemy.getLife() > 0) {
                 strike(enemy, character);
             }else {
                 gainXP(character, enemy);
@@ -39,9 +37,9 @@ public class Combat {
         }while(combatDuration);
     }
 
-    public boolean strike(Entity attacker, Entity defensor) {
+    public static boolean strike(Entity attacker, Entity defensor) {
         int strike = bestStrike(attacker);
-        if(strike >= defensor.getDefense()){
+        if(strike >= defensor.getDefense()) {
             System.out.println(attacker.getName() + " Acertou " + strike);
             hurtEntity(attacker.getDamage(), defensor, strike);
             return true;
@@ -51,23 +49,23 @@ public class Combat {
         } 
     }
 
-    public int bestStrike(Entity attacker) {
+    public static int bestStrike(Entity attacker) {
         int bestStrike = 0;
-        for(int i = 0; i < attacker.getstrength(); i++){
+        for(int i = 0; i < attacker.getstrength(); i++) {
             int strike = Manager.probabilityDice();
-            if(strike > bestStrike){
+            if(strike > bestStrike) {
                 bestStrike = strike;
             }
         }
         return bestStrike;
     }
 
-    public void hurtEntity(int damage, Entity entity, int strike){
-        if(strike == 10){
+    public static void hurtEntity(int damage, Entity entity, int strike) {
+        if(strike == 10) {
             damage = damage * 2;
         }
         int life = entity.soffrering(damage);
-        if(life <= 0){
+        if(life <= 0) {
             System.out.println(entity.getName() + " morreu");
             endCombat();
         }else {
@@ -75,11 +73,11 @@ public class Combat {
         }
     }
 
-    public void endCombat() {
+    public static void endCombat() {
         combatDuration = false;
     }
 
-    public void gainXP(Entity character, Entity enemy) {
+    public void gainXP(EntityPlayable character, EntityEnemy enemy) {
         int xp = enemy.getXpDrop();
         character.setActualXp(character, xp);
     }
