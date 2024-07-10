@@ -7,6 +7,12 @@ public class Warrior extends EntityPlayable {
         super(3, 2, 1, 3, 5);
         this.nameSkillOne = "FURIA";
         this.nameSkillTwo = "POSTURA DE COMBATE";
+        this.upDamage = 5;
+        this.upStrength = 5;
+        this.upAgility = 1;
+        this.upInteligence = 1;
+        this.upConstitution = 5;
+        this.upLife = 10;
     }
 
     @Override

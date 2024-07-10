@@ -14,15 +14,21 @@ public abstract class Entity {
     protected String name;
     protected int maxLife;
 
-    // Level / LevelUp / Xp Atual 
+    // Atributos de Combate
+    protected int dodge;
+    protected int critic;
+    protected int hit;
+
+    // Level
     protected int level = 1;
 
     // Bônus de Atributos 
-    //private int upStrength;
-    //private int upAgility;
-    //private int upInteligence;
-    //private int upConstitution;
-    //private int upLife;
+    protected int upStrength;
+    protected int upAgility;
+    protected int upInteligence;
+    protected int upConstitution;
+    protected int upLife;
+    protected int upDamage;
 
     public Entity(int strength, int agility, int inteligence, int constitution, int damage) {
         this.strength = strength;
@@ -77,10 +83,11 @@ public abstract class Entity {
     }
 
     public int healling(int heal) {
-        this.life = life + heal;
+        this.life = life + (this.level * heal);
         if(this.life > maxLife){
             this.life = maxLife;
         }
+
         return life;
     }
 }

@@ -21,11 +21,6 @@ public class Manager {
         dungeon.startDungeon(junior);
     }
 
-    public static int probabilityDice() {
-        int strike = (int) (Math.random() * 10) + 1;
-        return strike;
-    }
-
     public static void endGame() {
         System.out.println("VOCÊ MORREU");
     }

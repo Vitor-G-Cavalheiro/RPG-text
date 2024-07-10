@@ -33,12 +33,13 @@ public class EntityPlayable extends Entity {
     }
 
     public void LvlUp() {
-        maxLife = maxLife + 10; //this.upLife;
-        life = maxLife + 10; //this.upLife;
-        strength = strength + 5; //this.upStrength;
-        agility = agility + 1; //this.upAgility;
-        inteligence = inteligence + 1; // this.upInteligence;
-        constitution = constitution + 5; //this.upConstitution;
+        maxLife = maxLife + upLife; //this.upLife;
+        life = maxLife; //this.upLife;
+        strength = strength + upStrength; //this.upStrength;
+        agility = agility + upAgility; //this.upAgility;
+        inteligence = inteligence + upInteligence; // this.upInteligence;
+        constitution = constitution + upConstitution; //this.upConstitution;
+        damage = damage + upDamage;
         this.upXp = this.upXp + 25;
         this.level = this.level + 1;
     }

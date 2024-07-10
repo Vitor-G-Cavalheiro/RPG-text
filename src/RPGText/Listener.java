@@ -9,7 +9,7 @@ public class Listener {
     Scanner sc = new Scanner(System.in);
 
     public String loadingScreen() {
-        System.out.println("BEM VINDO AO TESTE 0.39");
+        System.out.println("BEM VINDO AO TESTE 0.51");
         System.out.println("DIGITE JOGAR PARA INICIAR");
         String player = sc.nextLine();
         return player;

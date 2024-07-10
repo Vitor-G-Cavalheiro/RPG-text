@@ -51,11 +51,13 @@ public class Combat {
 
     public static int bestStrike(Entity attacker) {
         int bestStrike = 0;
-        for(int i = 0; i < attacker.getstrength(); i++) {
-            int strike = Manager.probabilityDice();
-            if(strike > bestStrike) {
-                bestStrike = strike;
-            }
+        double probability = Math.random();
+        if(probability < 0.11) {
+            bestStrike = 10;
+        } else if(probability < 0.31) {
+            bestStrike = 0;
+        } else {
+            bestStrike = 9;
         }
         return bestStrike;
     }
@@ -82,3 +84,9 @@ public class Combat {
         character.setActualXp(character, xp);
     }
 }
+
+/* 100%
+ * 10% - critico
+ * 20% - esquiva
+ * 70% - acerto
+ */

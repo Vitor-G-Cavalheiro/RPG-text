@@ -61,6 +61,7 @@ public class Dungeon {
 
     public void combatRoom(EntityPlayable junior) {
         EntityEnemy enemy = enemyRandomizer();
+        enemy.setLevel(junior.getLevel());
         System.out.println("VOCÊ ENCONTROU UM -=[ " + enemy.getName() + " ]=-");
         System.out.println("Vida: "+ enemy.getLife());
         Combat combat = new Combat(junior, enemy);
