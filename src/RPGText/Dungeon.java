@@ -19,6 +19,7 @@ public class Dungeon {
 
     Random random = new Random();
 
+    // Inicia a Dungeon
     public void startDungeon(EntityPlayable junior) {
         for(int floor = 1; floor < 12;floor++) {
             if(junior.getLife() < 1) {
@@ -37,12 +38,14 @@ public class Dungeon {
         }     
     }
 
+    // Chama a sala do boss final
     public void finalBoss(EntityPlayable junior) {
         System.out.println("VOCÊ ENCONTROU O " + boss.getName());
         Combat combat = new Combat(junior, boss);
         combat.combatStart();
     }
 
+    // Randomiza os inimigos
     public EntityEnemy enemyRandomizer() {
         List<EntityEnemy> enemys = Arrays.asList(
             new Slime(), //40% 0.4 = 0 ao 0.4
@@ -59,14 +62,18 @@ public class Dungeon {
         }
     }
 
+    // Gera uma sala de combate
     public void combatRoom(EntityPlayable junior) {
         EntityEnemy enemy = enemyRandomizer();
+        enemy.setLevel(junior.getLevel());
+        System.out.println("O LEVEL DO INIMIGO É DE: " + enemy.getLevel());
         System.out.println("VOCÊ ENCONTROU UM -=[ " + enemy.getName() + " ]=-");
         System.out.println("Vida: "+ enemy.getLife());
         Combat combat = new Combat(junior, enemy);
         combat.combatStart();
     }
 
+    // Gera uma sala de descanso
     public void safeRoom(EntityPlayable junior) {
         System.out.println("DESCANSE UM POUCO!");
         junior.healling(100);
@@ -74,11 +81,13 @@ public class Dungeon {
         this.rewardAvaliable = true;
     }
 
+    // Gera uma sala de recompensa
     public void rewardRoom() {
         System.out.println("BEM VINDO A SALA DE RECOMPENSA");
         this.rewardAvaliable = false;
     }
 
+    // Aleatoriza as salas
     public void roomRandomizer(EntityPlayable junior) {
         double probability = Math.random();
         if(probability < 0.31 && rewardAvaliable) {
@@ -90,7 +99,7 @@ public class Dungeon {
 }
 
 
-/* 11 andares
+/* 11 andares ( 1 Dungeon )
  * 0 - 4 : monstros e 1 bau
  * 5 : safe room
  * 6 - 9 : 3 monstros e 1 bau

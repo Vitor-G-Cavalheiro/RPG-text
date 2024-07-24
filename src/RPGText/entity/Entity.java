@@ -24,21 +24,19 @@ public abstract class Entity {
     //private int upConstitution;
     //private int upLife;
 
+    // Método Criador
     public Entity(int strength, int agility, int inteligence, int constitution, int damage) {
         this.strength = strength;
         this.agility = agility;
         this.inteligence = inteligence;
         this.constitution = constitution;
-        this.defense = agility + 5;
-        this.life = constitution * 5;
+        this.defense = agility + 4;
+        this.life = 15 + constitution;
         this.maxLife = life;
         this.damage = damage;
     }     
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    // Métodos Get
     public int getAgility() {
         return agility;
     }
@@ -63,11 +61,6 @@ public abstract class Entity {
         return name;
     }
 
-    public int soffrering(int damage) {
-        this.life = life - damage;
-        return life;
-    }
-
     public int getLife() {
         return life;
     }
@@ -76,6 +69,23 @@ public abstract class Entity {
         return damage;
     }
 
+    public int getLevel() {
+        return this.level;
+    }
+
+    // Métodos Set
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Outros Métodos
+    // Método que remove vida
+    public int soffrering(int damage) {
+        this.life = life - damage;
+        return life;
+    }
+
+    // Método que cura vida
     public int healling(int heal) {
         this.life = life + heal;
         if(this.life > maxLife){

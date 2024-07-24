@@ -8,6 +8,7 @@ public class Manager {
     
     Warrior junior = new Warrior();
 
+    // Inicia um novo jogo
     public void startGame() {
         String player = listen.loadingScreen();
         if(player.equalsIgnoreCase("JOGAR")){
@@ -15,18 +16,21 @@ public class Manager {
         }
     }
 
+    // Grava o nome do jogador
     public void nameManager() {
         String name = listen.nameCharacter();
         junior.setName(name);
         dungeon.startDungeon(junior);
     }
 
+    // Probabilidade de 0 a 10
     public static int probabilityDice() {
         int strike = (int) (Math.random() * 10) + 1;
         return strike;
     }
 
+    // Chama o final de jogo caso morra
     public static void endGame() {
-        System.out.println("VOCÊ MORREU");
+        System.out.println("FIM DE JOGO\nOBRIGADO POR JOGAR");
     }
 }

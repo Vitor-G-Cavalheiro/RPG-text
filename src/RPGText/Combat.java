@@ -12,11 +12,13 @@ public class Combat {
     Listener listen = new Listener();
     Item item = new Item();
 
+    // Inicia um novo combate
     public Combat(EntityPlayable character, EntityEnemy enemy) {
         this.character = character;
         this.enemy = enemy;
     };
 
+    // Verifica a duração do combate
     public void combatStart() {
         combatDuration = true;
         do{
@@ -37,8 +39,10 @@ public class Combat {
         }while(combatDuration);
     }
 
+    // Calcula o acerto
     public static boolean strike(Entity attacker, Entity defensor) {
-        int strike = bestStrike(attacker);
+        int strike = Manager.probabilityDice();
+        //int strike = bestStrike(attacker);
         if(strike >= defensor.getDefense()) {
             System.out.println(attacker.getName() + " Acertou " + strike);
             hurtEntity(attacker.getDamage(), defensor, strike);
@@ -49,17 +53,31 @@ public class Combat {
         } 
     }
 
-    public static int bestStrike(Entity attacker) {
-        int bestStrike = 0;
-        for(int i = 0; i < attacker.getstrength(); i++) {
-            int strike = Manager.probabilityDice();
-            if(strike > bestStrike) {
-                bestStrike = strike;
-            }
-        }
-        return bestStrike;
+    // Calcula o acerto de Skills
+    public static boolean strikeSkill(String name, int damage, Entity defensor, int strike) {
+        if(strike >= defensor.getDefense()) {
+            System.out.println(name + " Acertou " + strike);
+            hurtEntity(damage, defensor, strike);
+            return true;
+        } else {
+            System.out.println(name + " errou");
+            return false;
+        } 
     }
 
+    // Roda dados -- Remover por probabilidade pura
+    /*public static int bestStrike(Entity attacker) {
+    *    int bestStrike = 0;
+    *    for(int i = 0; i < attacker.getstrength(); i++) {
+    *        int strike = Manager.probabilityDice();
+    *        if(strike > bestStrike) {
+    *            bestStrike = strike;
+    *        }
+    *    }
+    *    return bestStrike;
+    }*/
+
+    // Causar dano a qualquer entidade
     public static void hurtEntity(int damage, Entity entity, int strike) {
         if(strike == 10) {
             damage = damage * 2;
@@ -73,10 +91,12 @@ public class Combat {
         }
     }
 
+    // Fim do combate
     public static void endCombat() {
         combatDuration = false;
     }
 
+    // Ganho de Xp
     public void gainXP(EntityPlayable character, EntityEnemy enemy) {
         int xp = enemy.getXpDrop();
         character.setActualXp(character, xp);
