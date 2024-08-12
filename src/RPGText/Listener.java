@@ -7,24 +7,40 @@ import RPGText.entity.EntityPlayable;
 
 public class Listener {
     Scanner sc = new Scanner(System.in);
+    private String player;
 
+    // Escuta o inicio do jogo
     public String loadingScreen() {
-        System.out.println("BEM VINDO AO TESTE 0.51");
+        System.out.println("BEM VINDO AO TESTE 0.69");
         System.out.println("DIGITE JOGAR PARA INICIAR");
-        String player = sc.nextLine();
+        player = sc.nextLine();
         return player;
     }
 
+    // Nomeia o personagem
     public String nameCharacter() {
         System.out.println("NOMEIE SEU PERSONAGEM: ");
-        String player = sc.nextLine();
+        player = sc.nextLine();
         return player;
     }
+
+    // Escreve uma password
+    public String passwordVerify() {
+        System.out.println("Digite a Password: ");
+        player = sc.nextLine();
+        String[] passwordBreak = player.split("\\|");
+        if(!passwordBreak[3].equalsIgnoreCase("VK")) {
+            return "PASSWORD INVÁLIDA";
+        } else {
+            return player;
+        }
+    }
     
+    // Escolhas dentro do combate
     public Boolean choiceCombat(EntityPlayable character, EntityEnemy enemy) {
         boolean combatContinue = true;
         System.out.println("O QUE DESEJA FAZER?\n - ATACAR\n - ITEM\n - FUGIR");
-        String player = sc.nextLine();
+        player = sc.nextLine();
         if(player.equalsIgnoreCase("ATACAR")) {
             choiceSkill(character, enemy);
         }else if(player.equalsIgnoreCase("ITEM")) {
@@ -36,24 +52,26 @@ public class Listener {
         return combatContinue;
     }
 
+    // Escolha de item para ser usado
     public String choiceItem() {
         System.out.println("QUAL ITEM DESEJA USAR?\n - CURA\n - MANA");
-        String item = sc.nextLine();
-        return item;
+        player = sc.nextLine();
+        return player;
     }
 
+    // Escolha uma habilidade para ser usada
     public String choiceSkill(EntityPlayable character, EntityEnemy enemy) {
         String skillOne = character.getNameSkillOne();
         String skillTwo = character.getNameSkillTwo();
         System.out.println("QUAL HABILIDADE VAI USAR?\n - ATACAR\n - " + skillOne + "\n - " + skillTwo);
-        String skill = sc.nextLine();
-        if(skill.equalsIgnoreCase("ATACAR")) {
+        player = sc.nextLine();
+        if(player.equalsIgnoreCase("ATACAR")) {
             Combat.strike(character, enemy);
-        } else if(skill.equalsIgnoreCase(skillOne)) {
+        } else if(player.equalsIgnoreCase(skillOne)) {
             character.skillOne(enemy);
-        } else if(skill.equalsIgnoreCase(skillTwo)) {
+        } else if(player.equalsIgnoreCase(skillTwo)) {
             character.skillTwo(enemy);
         }
-        return skill;
+        return player;
     }
 }

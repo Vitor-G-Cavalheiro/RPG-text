@@ -30,21 +30,19 @@ public abstract class Entity {
     protected int upLife;
     protected int upDamage;
 
+    // Método Criador
     public Entity(int strength, int agility, int inteligence, int constitution, int damage) {
         this.strength = strength;
         this.agility = agility;
         this.inteligence = inteligence;
         this.constitution = constitution;
-        this.defense = agility + 5;
-        this.life = constitution * 5;
+        this.defense = agility + 4;
+        this.life = 15 + constitution;
         this.maxLife = life;
         this.damage = damage;
     }     
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    // Métodos Get
     public int getAgility() {
         return agility;
     }
@@ -69,25 +67,56 @@ public abstract class Entity {
         return name;
     }
 
-    public int soffrering(int damage) {
-        this.life = life - damage;
+    public int getLife() {
         return life;
     }
 
-    public int getLife() {
-        return life;
+    public int getMaxLife() {
+        return maxLife;
     }
 
     public int getDamage() {
         return damage;
     }
 
+    public int getLevel() {
+        return this.level;
+    }
+
+    // Métodos Set
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Outros Métodos
+    // Método que remove vida
+    public int soffrering(int damage) {
+        this.life = life - damage;
+        return life;
+    }
+
+    // Método que cura vida
     public int healling(int heal) {
+        this.life = life + (this.level * heal);
         this.life = life + (this.level * heal);
         if(this.life > maxLife){
             this.life = maxLife;
         }
 
         return life;
+    }
+
+    // Método que muda o Level
+    public void setLevel(int level) {
+        while(this.level < level){
+            this.maxLife = this.maxLife + this.upLife;
+            this.life = this.maxLife;
+            this.strength = this.strength + this.upStrength;
+            this.agility = this.agility + this.upAgility;
+            this.inteligence = this.inteligence + this.upInteligence;
+            this.constitution = this.constitution + this.upConstitution;
+            this.damage = this.damage + this.upDamage;
+            this.level = this.level + 1;
+        } 
     }
 }
