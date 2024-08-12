@@ -116,3 +116,9 @@ public class Combat {
         character.setActualXp(character, xp);
     }
 }
+
+/* 100%
+ * 10% - critico
+ * 20% - esquiva
+ * 70% - acerto
+ */

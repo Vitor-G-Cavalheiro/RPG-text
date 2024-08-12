@@ -19,7 +19,17 @@ public abstract class Entity {
     protected int critic;
     protected int hit;
 
-    // Level / LevelUp / Xp Atual 
+    // Atributos de Combate
+    protected int dodge;
+    protected int critic;
+    protected int hit;
+
+    // Atributos de Combate
+    protected int dodge;
+    protected int critic;
+    protected int hit;
+
+    // Level
     protected int level = 1;
 
     // Bônus de Atributos 
@@ -98,9 +108,11 @@ public abstract class Entity {
     // Método que cura vida
     public int healling(int heal) {
         this.life = life + (this.level * heal);
+        this.life = life + (this.level * heal);
         if(this.life > maxLife){
             this.life = maxLife;
         }
+
         return life;
     }
 
