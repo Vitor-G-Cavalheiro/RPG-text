@@ -4,7 +4,6 @@ public class EntityEnemy extends Entity {
     // XP Drop
     protected int xpDrop;
     protected int upXpDrop;
-    protected int upXpDrop;
 
     // Método Criador
     public EntityEnemy(int strength, int agility, int inteligence, int constitution, int damage) {

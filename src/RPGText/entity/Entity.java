@@ -19,16 +19,6 @@ public abstract class Entity {
     protected int critic;
     protected int hit;
 
-    // Atributos de Combate
-    protected int dodge;
-    protected int critic;
-    protected int hit;
-
-    // Atributos de Combate
-    protected int dodge;
-    protected int critic;
-    protected int hit;
-
     // Level
     protected int level = 1;
 
