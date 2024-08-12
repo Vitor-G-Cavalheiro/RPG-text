@@ -3,6 +3,7 @@ package RPGText.entity;
 public class EntityEnemy extends Entity {
     // XP Drop
     protected int xpDrop;
+    protected int upXpDrop;
 
     // Método Criador
     public EntityEnemy(int strength, int agility, int inteligence, int constitution, int damage) {
@@ -14,16 +15,10 @@ public class EntityEnemy extends Entity {
         return this.xpDrop;
     }
 
-    // Métodos Set
+    // Override SetLevel pq Entity não possui xpDrop
+    @Override
     public void setLevel(int level) {
-        for(int i = 1; i < level;i++) {
-            maxLife = maxLife + constitution; //this.upLife;
-            life = maxLife; //this.upLife;
-            strength = strength + 5; //this.upStrength;
-            agility = agility + 1; //this.upAgility;
-            inteligence = inteligence + 1; // this.upInteligence;
-            constitution = constitution + 5; //this.upConstitution;
-            this.level = this.level + 1;
-        }
+        super.setLevel(level);
+        this.xpDrop = this.xpDrop + this.upXpDrop;
     }
 }

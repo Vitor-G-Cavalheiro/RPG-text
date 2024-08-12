@@ -41,7 +41,7 @@ public class Combat {
 
     // Calcula o acerto
     public static boolean strike(Entity attacker, Entity defensor) {
-        int strike = Manager.probabilityDice();
+        int strike = bestStrike();
         //int strike = bestStrike(attacker);
         if(strike >= defensor.getDefense()) {
             System.out.println(attacker.getName() + " Acertou " + strike);
@@ -63,6 +63,20 @@ public class Combat {
             System.out.println(name + " errou");
             return false;
         } 
+    }
+
+    // Calcula o acerto
+    public static int bestStrike() {
+        int bestStrike = 0;
+        double probability = Math.random();
+        if(probability < 0.11) {
+            bestStrike = 10; // 10% crítico
+        } else if(probability < 0.31) {
+            bestStrike = 0; // 30% erro | esquiva
+        } else {
+            bestStrike = 9; // 70% acerto
+        }
+        return bestStrike;
     }
 
     // Roda dados -- Remover por probabilidade pura

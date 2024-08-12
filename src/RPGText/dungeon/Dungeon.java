@@ -1,36 +1,35 @@
-package RPGText;
+package RPGText.dungeon;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Arrays;
-
-import RPGText.entity.Dragon;
+import RPGText.Combat;
+import RPGText.Manager;
 import RPGText.entity.EntityEnemy;
 import RPGText.entity.EntityPlayable;
-import RPGText.entity.Goblin;
 import RPGText.entity.Slime;
-import RPGText.entity.Wolf;
 
 public class Dungeon {
-    Dragon boss = new Dragon();
-    boolean rewardAvaliable = true;
-    
-    Listener listen = new Listener();
+    private EntityEnemy boss;
+    private int finalFloor;
 
-    Random random = new Random();
+    protected boolean rewardAvaliable = true;
+
+    public Dungeon(EntityEnemy boss, int finalFloor) {
+        this.boss = boss;
+        this.finalFloor = finalFloor;
+    }
 
     // Inicia a Dungeon
     public void startDungeon(EntityPlayable junior) {
-        for(int floor = 1; floor < 12;floor++) {
+        int midFloor = (finalFloor - 1);
+        for(int floor = 1; floor <= finalFloor;floor++) {
             if(junior.getLife() < 1) {
                 Manager.endGame();
                 break;
             }
-            if(floor == 4 && rewardAvaliable || floor == 8 && rewardAvaliable){
+            if(floor == (midFloor/2)-1 && rewardAvaliable || floor == midFloor-1 && rewardAvaliable){
                 rewardRoom();
-            } else if(floor == 5 || floor == 10) {
+            } else if(floor == midFloor/2 || floor == midFloor) {
                 safeRoom(junior);
-            } else if(floor == 11) {
+            } else if(floor == finalFloor) {
                 finalBoss(junior);
             } else {
                 roomRandomizer(junior);
@@ -40,26 +39,15 @@ public class Dungeon {
 
     // Chama a sala do boss final
     public void finalBoss(EntityPlayable junior) {
-        System.out.println("VOCÊ ENCONTROU O " + boss.getName());
-        Combat combat = new Combat(junior, boss);
+        System.out.println("VOCÊ ENCONTROU O " + this.boss.getName());
+        Combat combat = new Combat(junior, this.boss);
         combat.combatStart();
+        Manager.passwordGenerator(junior);
     }
 
     // Randomiza os inimigos
     public EntityEnemy enemyRandomizer() {
-        List<EntityEnemy> enemys = Arrays.asList(
-            new Slime(), //40% 0.4 = 0 ao 0.4
-            new Goblin(), //35% 0.4 + 0.35 = 0.41 ao 0.75
-            new Wolf() //25% 0.4 + 0.35 + 0.25 = 0.76 ao 1
-        );
-        double probability = Math.random();
-        if(probability < 0.41) {
-            return enemys.get(0);
-        }else if(probability < 0.76) {
-            return enemys.get(1);
-        }else {
-            return enemys.get(2);
-        }
+        return new Slime(); //Feito para ser sobreescrito pelas dungeons
     }
 
     // Gera uma sala de combate
@@ -76,7 +64,7 @@ public class Dungeon {
     // Gera uma sala de descanso
     public void safeRoom(EntityPlayable junior) {
         System.out.println("DESCANSE UM POUCO!");
-        junior.healling(100);
+        junior.healling(junior.getMaxLife());
         System.out.println("VOCÊ DESCANSOU, SUA VIDA ATUAL É DE: " + junior.getLife());
         this.rewardAvaliable = true;
     }
@@ -91,15 +79,21 @@ public class Dungeon {
     public void roomRandomizer(EntityPlayable junior) {
         double probability = Math.random();
         if(probability < 0.31 && rewardAvaliable) {
-            rewardRoom();
+            rewardRoom(); //30% de chance de sala de bônus
         } else {
             combatRoom(junior);
         }
     }
 }
 
+/* Z andares ( Dungeon )
+ * Espaço entre : X monstros e Y baus
+ * Metade - 1 : safe room
+ * Espaço entre : X monstros e Y baus
+ * Antes do Final - Final : safe room antes do boss e o boss;
+ */
 
-/* 11 andares ( 1 Dungeon )
+ /* 11 andares ( Dungeon Tutorial )
  * 0 - 4 : monstros e 1 bau
  * 5 : safe room
  * 6 - 9 : 3 monstros e 1 bau

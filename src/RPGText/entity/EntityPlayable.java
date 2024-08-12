@@ -1,6 +1,9 @@
 package RPGText.entity;
 
 public class EntityPlayable extends Entity {
+    // Classes
+    protected String type;
+    
     // Necessário para Upar / XP Atual
     private int upXp = 50;
     private int actualXp = 0;
@@ -14,13 +17,18 @@ public class EntityPlayable extends Entity {
     protected int maxMana;
 
     // Método Criador
-    public EntityPlayable(int strength, int agility, int inteligence, int constitution, int damage) {
+    public EntityPlayable(int strength, int agility, int inteligence, int constitution, int damage, String type) {
         super(strength, agility, inteligence, constitution, damage);
         this.mana = 12 + inteligence;
         this.maxMana = mana;
+        this.type = type;
     }
 
-     // Métodos Get
+    // Métodos Get
+    public String getType() {
+        return type;
+    }
+
      public int getXpActual() {
         return this.actualXp;
     }
@@ -47,12 +55,13 @@ public class EntityPlayable extends Entity {
 
     // Outros Métodos
     public void LvlUp() {
-        maxLife = maxLife + constitution; //this.upLife;
+        maxLife = maxLife + upLife;
         life = maxLife; //this.upLife;
-        strength = strength + 5; //this.upStrength;
-        agility = agility + 1; //this.upAgility;
-        inteligence = inteligence + 1; // this.upInteligence;
-        constitution = constitution + 5; //this.upConstitution;
+        strength = strength + upStrength;
+        agility = agility + upAgility;
+        inteligence = inteligence + upInteligence;
+        constitution = constitution + upConstitution;
+        damage = damage + upDamage;
         this.maxMana = maxMana + inteligence;
         this.mana = maxMana;
         this.upXp = this.upXp + 25;

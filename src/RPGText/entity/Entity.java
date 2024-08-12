@@ -14,15 +14,21 @@ public abstract class Entity {
     protected String name;
     protected int maxLife;
 
+    // Atributos de Combate
+    protected int dodge;
+    protected int critic;
+    protected int hit;
+
     // Level / LevelUp / Xp Atual 
     protected int level = 1;
 
     // Bônus de Atributos 
-    //private int upStrength;
-    //private int upAgility;
-    //private int upInteligence;
-    //private int upConstitution;
-    //private int upLife;
+    protected int upStrength;
+    protected int upAgility;
+    protected int upInteligence;
+    protected int upConstitution;
+    protected int upLife;
+    protected int upDamage;
 
     // Método Criador
     public Entity(int strength, int agility, int inteligence, int constitution, int damage) {
@@ -65,6 +71,10 @@ public abstract class Entity {
         return life;
     }
 
+    public int getMaxLife() {
+        return maxLife;
+    }
+
     public int getDamage() {
         return damage;
     }
@@ -87,10 +97,24 @@ public abstract class Entity {
 
     // Método que cura vida
     public int healling(int heal) {
-        this.life = life + heal;
+        this.life = life + (this.level * heal);
         if(this.life > maxLife){
             this.life = maxLife;
         }
         return life;
+    }
+
+    // Método que muda o Level
+    public void setLevel(int level) {
+        while(this.level < level){
+            this.maxLife = this.maxLife + this.upLife;
+            this.life = this.maxLife;
+            this.strength = this.strength + this.upStrength;
+            this.agility = this.agility + this.upAgility;
+            this.inteligence = this.inteligence + this.upInteligence;
+            this.constitution = this.constitution + this.upConstitution;
+            this.damage = this.damage + this.upDamage;
+            this.level = this.level + 1;
+        } 
     }
 }
