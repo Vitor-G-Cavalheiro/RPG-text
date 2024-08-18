@@ -11,6 +11,10 @@ public class EntityPlayable extends Entity {
     // Nome das Habilidades
     protected String nameSkillOne;
     protected String nameSkillTwo;
+    
+    // Preço das Habilidades
+    protected int custSkillOne;
+    protected int custSkillTwo;
 
     // Mana
     protected int mana;
@@ -22,6 +26,10 @@ public class EntityPlayable extends Entity {
         this.mana = 12 + inteligence;
         this.maxMana = mana;
         this.type = type;
+    }
+
+    public EntityPlayable() {
+        super(0, 0, 0, 0, 0);
     }
 
     // Métodos Get
@@ -39,6 +47,22 @@ public class EntityPlayable extends Entity {
 
     public String getNameSkillTwo() {
         return this.nameSkillTwo;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public int getMaxMana() {
+        return maxMana;
+    }
+
+    public int getCustSkillOne() {
+        return custSkillOne;
+    }
+
+    public int getCustSkillTwo() {
+        return custSkillTwo;
     }
 
     // Métodos Set
@@ -66,6 +90,22 @@ public class EntityPlayable extends Entity {
         this.mana = maxMana;
         this.upXp = this.upXp + 25;
         this.level = this.level + 1;
+    }
+
+    // Gerenciamento de Mana
+    public void custMana(int cust) {
+        this.mana -= cust;
+    }
+
+    // Recuperação de Mana
+    public int manaRec(int healMana) {
+        this.mana = mana + (this.level * healMana);
+        this.mana = mana + (this.level * healMana);
+        if(this.mana > maxMana){
+            this.mana = maxMana;
+        }
+
+        return mana;
     }
 
     // Métodos de Habilidades que vão ser sobreescritos

@@ -2,19 +2,16 @@ package RPGText;
 
 import RPGText.dungeon.DungeonTutorial;
 import RPGText.entity.EntityPlayable;
-import RPGText.entity.Warrior;
 
 public class Manager {
     Listener listen = new Listener();
     DungeonTutorial dungeonTutorial = new DungeonTutorial();
-    
-    Warrior junior = new Warrior();
 
     // Inicia um novo jogo
     public void startGame() {
         String player = listen.loadingScreen();
         if(player.equalsIgnoreCase("JOGAR")) {
-            nameManager();
+            nameTypeManager();
         } else if(player.equalsIgnoreCase("PASSWORD")) {
             String valid = listen.passwordVerify();
             if(!valid.equalsIgnoreCase("PASSWORD INVÁLIDA")) {
@@ -23,9 +20,11 @@ public class Manager {
         }
     }
 
-    // Grava o nome do jogador
-    public void nameManager() {
+    // Grava o nome e classe do jogador
+    public void nameTypeManager() {
+        String type = Choice.typeShowcase();
         String name = listen.nameCharacter();
+        EntityPlayable junior = Choice.typeReader(type.substring(0, 3));
         junior.setName(name);
         dungeonTutorial.startDungeon(junior);
     }
@@ -46,18 +45,9 @@ public class Manager {
     // Leitor de password
     public void passwordReader(String password) {
         String[] passwordBreak = password.split("\\|");
-        EntityPlayable junior = typeReader(passwordBreak[2]);
+        EntityPlayable junior = Choice.typeReader(passwordBreak[1]);
         junior.setLevel(Integer.parseInt(passwordBreak[0]));
         junior.setName(passwordBreak[2]);
         dungeonTutorial.startDungeon(junior);
-    }
-
-    // Seletor de Classe/Tipo
-    public static EntityPlayable typeReader(String type) {
-        if(type.equals("WAR")) {
-            return new Warrior();
-        } else {
-            return new Warrior();
-        }
     }
 }

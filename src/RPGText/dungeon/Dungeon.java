@@ -4,7 +4,7 @@ import RPGText.Combat;
 import RPGText.Manager;
 import RPGText.entity.EntityEnemy;
 import RPGText.entity.EntityPlayable;
-import RPGText.entity.Slime;
+import RPGText.entity.enemies.Slime;
 
 public class Dungeon {
     private EntityEnemy boss;
@@ -65,7 +65,9 @@ public class Dungeon {
     public void safeRoom(EntityPlayable junior) {
         System.out.println("DESCANSE UM POUCO!");
         junior.healling(junior.getMaxLife());
+        junior.manaRec(junior.getMaxMana());
         System.out.println("VOCÊ DESCANSOU, SUA VIDA ATUAL É DE: " + junior.getLife());
+        System.out.println("VOCÊ DESCANSOU, SUA MANA ATUAL É DE: " + junior.getMana());
         this.rewardAvaliable = true;
     }
 

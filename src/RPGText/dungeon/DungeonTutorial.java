@@ -1,10 +1,10 @@
 package RPGText.dungeon;
 
-import RPGText.entity.Dragon;
 import RPGText.entity.EntityEnemy;
-import RPGText.entity.Goblin;
-import RPGText.entity.Slime;
-import RPGText.entity.Wolf;
+import RPGText.entity.enemies.Dragon;
+import RPGText.entity.enemies.Goblin;
+import RPGText.entity.enemies.Slime;
+import RPGText.entity.enemies.Wolf;
 
 public class DungeonTutorial extends Dungeon {
     public DungeonTutorial() {

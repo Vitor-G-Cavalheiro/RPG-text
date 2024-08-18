@@ -1,4 +1,6 @@
-package RPGText.entity;
+package RPGText.entity.enemies;
+
+import RPGText.entity.EntityEnemy;
 
 public class Wolf extends EntityEnemy {
     public Wolf() {
