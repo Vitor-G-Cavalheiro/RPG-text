@@ -11,7 +11,7 @@ public class Listener {
 
     // Escuta o inicio do jogo
     public String loadingScreen() {
-        System.out.println("BEM VINDO AO TESTE 0.69");
+        System.out.println("BEM VINDO AO TESTE 0.78");
         System.out.println("DIGITE JOGAR PARA INICIAR");
         player = sc.nextLine();
         return player;
@@ -20,8 +20,7 @@ public class Listener {
     // Nomeia o personagem
     public String nameCharacter() {
         System.out.println("NOMEIE SEU PERSONAGEM: ");
-        player = sc.nextLine();
-        return player;
+        return sc.nextLine();
     }
 
     // Escreve uma password
@@ -55,22 +54,32 @@ public class Listener {
     // Escolha de item para ser usado
     public String choiceItem() {
         System.out.println("QUAL ITEM DESEJA USAR?\n - CURA\n - MANA");
-        player = sc.nextLine();
-        return player;
+        return sc.nextLine();
     }
 
     // Escolha uma habilidade para ser usada
     public String choiceSkill(EntityPlayable character, EntityEnemy enemy) {
         String skillOne = character.getNameSkillOne();
         String skillTwo = character.getNameSkillTwo();
-        System.out.println("QUAL HABILIDADE VAI USAR?\n - ATACAR\n - " + skillOne + "\n - " + skillTwo);
+        System.out.println("QUAL HABILIDADE VAI USAR?\n - ATACAR\n - " + character.getCustSkillOne() + " | " + skillOne + "\n - " + character.getCustSkillTwo() + " | " + skillTwo);
         player = sc.nextLine();
         if(player.equalsIgnoreCase("ATACAR")) {
             Combat.strike(character, enemy);
         } else if(player.equalsIgnoreCase(skillOne)) {
-            character.skillOne(enemy);
+            if(character.getMana() >= character.getCustSkillOne()) { //Verificação de Mana Suficiente
+                character.custMana(character.getCustSkillOne());
+                System.out.println("Sua mana atual é de: " + character.getMana());
+                character.skillOne(enemy);
+            } else {
+                System.out.println("Sem mana para usar este ataque!");
+            }
         } else if(player.equalsIgnoreCase(skillTwo)) {
-            character.skillTwo(enemy);
+            if(character.getMana() >= character.getCustSkillTwo()) { //Verificação de Mana Suficiente
+                character.custMana(character.getCustSkillTwo());
+                character.skillTwo(enemy);
+            } else {
+                System.out.println("Sem mana para usar este ataque!");
+            };
         }
         return player;
     }
